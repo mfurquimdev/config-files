@@ -129,7 +129,7 @@ set $ws10 "10"
 
 exec --no-startup-id i3-msg 'workspace $ws1; exec /usr/bin/firefox'
 exec --no-startup-id i3-msg 'workspace $ws3; exec /usr/bin/kitty'
-#exec --no-startup-id i3-msg 'workspace 2:; exec /usr/bin/atom'
+exec --no-startup-id i3-msg 'workspace 2:; exec /usr/bin/atom'
 #exec --no-startup-id i3-msg 'workspace 4:; exec /usr/bin/spotify'
 
 workspace $ws1 output HDMI1
