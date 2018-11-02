@@ -14,6 +14,9 @@ exec "setxkbmap -layout br"
 exec "xrandr --output HDMI1 --primary --mode 1920x1080 --pos 0x0 --output eDP1 --mode 1366x768 --pos 1920x312"
 #exec "xrandr --output eDP1 --primary  --mode 1366x768 --pos 0x0"
 
+# Start compton to make windows transparent
+exec --no-startup-id compton -cCGf -b --vsync opengl
+
 # modifier = Alt, sup = Windows key
 set $mod Mod1
 set $sup Mod4
@@ -129,7 +132,8 @@ set $ws10 "10"
 
 exec --no-startup-id i3-msg 'workspace $ws1; exec /usr/bin/firefox'
 exec --no-startup-id i3-msg 'workspace $ws3; exec /usr/bin/kitty'
-exec --no-startup-id i3-msg 'workspace 2:; exec /usr/bin/atom'
+exec --no-startup-id i3-msg 'workspace $ws2; exec /opt/android-studio/bin/studio.sh'
+#exec --no-startup-id i3-msg 'workspace $ws2; exec /usr/bin/atom'
 #exec --no-startup-id i3-msg 'workspace 4:; exec /usr/bin/spotify'
 
 workspace $ws1 output HDMI1
@@ -292,8 +296,14 @@ focus_on_window_activation urgent
 
 workspace_auto_back_and_forth no
 
+# Initiate MPD
+exec --no-startup-id mopidy
+
 # No lock screen
 exec "xset -dpms; xset s off; xset s noblank; xset q"
 
 # Lock screen
-exec --no-startup-id xautolock -time 30 -locker lock
+exec --no-startup-id xautolock -time 30 -locker lock -notify 120 -notifier "notify-send -u critical -t 120000 -- 'Locking in 2min'" -killtime 10 -killer "systemctl suspend"
+
+# Set background image
+exec --no-startup-id ~/.fehbg
